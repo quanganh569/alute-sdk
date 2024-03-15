@@ -119,7 +119,7 @@ const CookieBanner = () => {
           tabIndex={-1}
           className="fixed px-40 py-10 space-x-10 bottom-0 start-0 z-50 flex flex-col justify-between w-full p-4 border-b border-gray-200 md:flex-row bg-[#168F7C] dark:bg-gray-700 dark:border-gray-600"
         >
-          <div className="flex flex-row items-start  w-fill md:flex-col lg:items-end ">
+          <div className="flex flex-row items-start  md:flex-col lg:items-end ">
             <div className="relative h-24 cursor-pointer lg:w-40 w-36">
               <span
                 style={{
