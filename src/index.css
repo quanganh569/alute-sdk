@@ -1,0 +1,14 @@
+#fcc_foldout_menu {
+    background-color: rgba(255, 255, 204, 0.9);
+    border: 0px solid #fff;
+    border-radius: 0px 0px 5px 0px;
+    box-shadow: 1px 1px 10px rgba(128, 128, 128, 0.6);
+    font-family: Noto Sans, arial, sans-serif;
+    height: 210px;
+    left: 0;
+    pointer-events: all;
+    position: absolute;
+    top: 0;
+    transition: 0.5s;
+    width: 320px;
+}
