@@ -1,3 +1,4 @@
+import React from "react";
 
 const PrivacyPolicy = (data) => {
   const policy = data.data;

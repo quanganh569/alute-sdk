@@ -1,4 +1,5 @@
 // Tab.js
+import React from "react";
 
 const Tab = ({ nameTab, active, onClick, color, icon, countOfTab }) => {
   const tabStyle = {
