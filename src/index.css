@@ -12,3 +12,6 @@
     transition: 0.5s;
     width: 320px;
 }
+.body{
+    background:transparent !important
+}
