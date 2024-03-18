@@ -7,7 +7,7 @@ import CookieBanner from "./components/CookieBanner";
 const App=()=> {
   
   return (
-    <div id="#fcc_foldout_menu">
+    <div>
       <ToastContainer />
       {posthog.has_opted_out_capturing() || // new
       posthog.has_opted_in_capturing() ? null : (
