@@ -1,9 +1,9 @@
 import posthog from "posthog-js";
+import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import CookieBanner from "./components/CookieBanner";
-
 const App=()=> {
   
   return (
