@@ -1,13 +1,12 @@
 // CookieBanner.js
 
-import axios from "axios";
-import posthog from "posthog-js";
-import { Fragment, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-// import logo from "./../assets/logo";
 import { Dialog, Transition } from "@headlessui/react";
 import { XCircleIcon } from "@heroicons/react/24/solid";
-import React from "react";
+import axios from "axios";
+import posthog from "posthog-js";
+import React, { Fragment, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import logo from "./../assets/logo.png";
 import Tab from "./common/TabSelect";
 const CookieBanner = () => {
   const [showBanner, setShowBanner] = useState(true); // new
@@ -142,7 +141,7 @@ const CookieBanner = () => {
               >
                 <img
                   alt="logo"
-                  // src={logo}
+                  src={logo}
                   decoding="async"
                   data-nimg="fill"
                   style={{
