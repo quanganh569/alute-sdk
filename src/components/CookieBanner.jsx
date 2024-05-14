@@ -1,15 +1,24 @@
 // CookieBanner.js
 
-import { Dialog, Transition } from "@headlessui/react";
-import { XCircleIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import posthog from "posthog-js";
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import logo from "./../assets/logo.png";
+// import logo from "./../assets/logo";
+import { Dialog, Transition } from "@headlessui/react";
+import { ShieldCheckIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import React from "react";
 import Tab from "./common/TabSelect";
+
+
 const CookieBanner = () => {
   const [showBanner, setShowBanner] = useState(true); // new
+
+  const acceptCookies = () => {
+    posthog.opt_in_capturing();
+    setShowBanner(false); // new
+    alert("Cho phép");
+  };
 
   const declineCookies = () => {
     posthog.opt_out_capturing();
@@ -17,17 +26,17 @@ const CookieBanner = () => {
     toast.success("Từ chối thu thập");
   };
   // GARENA APP
-  const idApp = "153c499c-582f-456c-82da-4b60d22b9e2e";
+  const idApp = "95bd9c94-c88b-4b57-b1a3-47b029d8c5dd";
 
   const [dymanicForm, setDynamicForm] = useState([]);
-  const [apiPolicyTermData, setApiPolicyTermData] = useState([]);
+  const [apiPolicyTermData, setApiPolicyTermData] = useState([] );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [dynamicResponse, policyTermResponse] = await Promise.all([
-          axios.get(`https://api-cmp.5labs.io/apps/field/${idApp}`),
-          axios.get(`https://api-cmp.5labs.io/apps/term-policy/${idApp}`),
+          axios.get(`https://api-cmp.zepto.vn/apps/field/${idApp}`),
+          axios.get(`https://api-cmp.zepto.vn/apps/term-policy/${idApp}`),
         ]);
 
         // Set the data in state
@@ -41,7 +50,7 @@ const CookieBanner = () => {
 
     // Call the fetchData function
     fetchData();
-  }, [idApp]);
+  }, []);
 
   const [activeTab, setActiveTab] = useState(0);
   const tabData = [
@@ -60,6 +69,25 @@ const CookieBanner = () => {
     {
       name: "Privacy policy",
       color: "#168F7C",
+    },
+  ];
+
+  const settingsData = [
+    // {
+    //   name: "Status",
+    //   key: "verified",
+    // },
+    // {
+    //   name: "Opt Out ",
+    //   key: "optout",
+    // },
+    {
+      name: "Privacy Policy",
+      key: "privacy_policy",
+    },
+    {
+      name: "Term and conditions ",
+      key: "terms_and_conditions",
     },
   ];
 
@@ -88,8 +116,8 @@ const CookieBanner = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     try {
-      const response = axios.put(
-        `https://api-cmp.5labs.io/consent/create/${idApp}`,
+      axios.put(
+        `https://api-cmp.zepto.vn/consent/create/${idApp}`,
         formData
       );
       // setValue("");
@@ -118,58 +146,13 @@ const CookieBanner = () => {
           tabIndex={-1}
           className="fixed px-40 py-10 space-x-10 bottom-0 start-0 z-50 flex flex-col justify-between w-full p-4 border-b border-gray-200 md:flex-row bg-[#168F7C] dark:bg-gray-700 dark:border-gray-600"
         >
-          <div className="flex flex-row items-start  md:flex-col lg:items-end ">
-            <div className="relative h-24 cursor-pointer lg:w-40 w-36">
-              <span
-                style={{
-                  boxSizing: "border-box",
-                  display: "block",
-                  overflow: "hidden",
-                  width: "initial",
-                  height: "initial",
-                  background: "none",
-                  opacity: 1,
-                  border: 0,
-                  margin: 0,
-                  padding: 0,
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  bottom: 0,
-                  right: 0,
-                }}
-              >
-                <img
-                  alt="logo"
-                  src={logo}
-                  decoding="async"
-                  data-nimg="fill"
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    boxSizing: "border-box",
-                    padding: 0,
-                    border: "none",
-                    margin: "auto",
-                    display: "block",
-                    width: 0,
-                    height: 0,
-                    minWidth: "100%",
-                    maxWidth: "100%",
-                    minHeight: "100%",
-                    maxHeight: "100%",
-                    objectFit: "contain",
-                  }}
-                  sizes="100vw"
-                />
-              </span>
+          <div className="flex flex-row items-start  w-fill md:flex-col lg:items-end ">
+            <div className="relative h-40 cursor-pointer  w-40">
+            <ShieldCheckIcon className="w-40 h-40 text-white"/>
             </div>
           </div>
 
-          <div className="mb-4 md:mb-0 md:me-4">
+          <div className="mb-4 md:mb-0 md:me-4 text-left my-5">
             <h3 className="mb-1 text-xl font-bold text-white dark:text-white">
               Chính sách bảo mật
             </h3>
@@ -211,7 +194,7 @@ const CookieBanner = () => {
           <>
             <div className="flex flex-row space-x-3 p-4 justify-items-center justify-content-between  mx-auto  ">
               {tabData.map((tab, index) => (
-                <div className="" key={index}>
+                <div className="">
                   <Tab
                     // countOfTab={tab.countOfTab}
                     // icon={tab.icon}
@@ -233,9 +216,9 @@ const CookieBanner = () => {
                 >
                   <p className="text-center  text-xl font-bold">Consent Form</p>
 
-                  {dymanicForm?.map((item, index) => {
+                  {dymanicForm?.map((item) => {
                     return (
-                      <div className="mb-4" key={index}>
+                      <div className="mb-4">
                         <label
                           className="block text-gray-700 text-sm font-bold mb-2 uppercase"
                           htmlFor="email"
@@ -291,6 +274,7 @@ const CookieBanner = () => {
 
 export default CookieBanner;
 
+
 const ModalCustomize = ({
   isShow,
   handleOpen,
@@ -306,9 +290,7 @@ const ModalCustomize = ({
           id="modal"
           className="fixed inset-0 z-10 overflow-y-auto"
           static
-          onClose={() => {
-            console.log("123");
-          }}
+          onClose={()=>{console.log("123")}}
         >
           <Transition.Child
             as={Fragment}
