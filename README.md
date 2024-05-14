@@ -81,7 +81,7 @@
 2. In the HTML block, add a `div` with an ID that matches the mounting point in `src/main.jsx` from your app's original source (the default ID is `"root"`).
 
    ```html
-   <div id="root2">App loading...</div>
+   <div id="root">App loading...</div>
    ```
 
 3. Add a `<script>` that pulls in the `app.js` file previously built. For example, if you've hosted the script on GitHub, you could use a CDN link like this:
